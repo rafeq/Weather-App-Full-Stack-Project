@@ -8,7 +8,8 @@ const weatherSchema = new Schema({
     name: String,
     temperature: Number,
     condition: String,
-    conditionPic: String
+    conditionPic: String,
+    flag:Boolean
 })
 Weather = mongoose.model("Weather", weatherSchema);
 module.exports = Weather

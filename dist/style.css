@@ -1,0 +1,33 @@
+* {
+    font-family: 'PT Sans', sans-serif;
+}
+
+body {
+    background-color: #42a5f5
+    ;
+}
+
+.weath{
+    display: grid;
+    
+    color: #ecf0f1;
+    grid-template-columns: repeat(4, 1fr);
+    
+ 
+}
+.weather-container {
+    align-content: center;
+    display: grid;
+
+    padding: 1vmax;
+    border-radius: 4px;
+    box-shadow: 1px 1px 3px black;
+    background-color:#007ea7;
+}
+.container{
+    display: grid;
+    background-color: #2c3e50;
+
+    padding-right: 10px;
+    padding-left: 10px;
+}

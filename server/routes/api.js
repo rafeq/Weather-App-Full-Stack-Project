@@ -8,13 +8,14 @@ router.get('/weather/:cityName', function (req, res) {
     const cityName = req.params.cityName
     axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityName},ils&APPID=e239f5f4f62e52ef77367a4391ce4146&units=metric`)
         .then(function (results) {
-            _weatherData = { name: results.data.name, temperature: results.data['main'].temp, condition: results.data['weather'][0]['description'], conditionPic: results.data['weather'][0]['icon'] }
+            _weatherData = { name: results.data.name, temperature: results.data['main'].temp, condition: results.data['weather'][0]['description'], conditionPic: results.data['weather'][0]['icon'],flag:false }
+            console.log(_weatherData);
             res.send(_weatherData)
         })
 })
 
 router.get('/weather', function (req, res) {
-    Weather.find({}).then(function(results){
+    Weather.find({}).then(function (results) {
         res.send(results)
     })
 })
@@ -24,32 +25,22 @@ router.post("/weather", (req, res) => {
         name: req.body.name,
         temperature: req.body.temperature,
         condition: req.body.condition,
-        conditionPic: req.body.conditionPic
+        conditionPic: req.body.conditionPic,
+        flag: req.body.flag
+
     })
-    weather.save().then((res)=>{
+    weather.save().then((res) => {
         console.log("succ")
     })
+    res.end()
 })
-
-function findByname(cityName){
-    let _data
-    Weather.find({}).then(function(results){
-        _data=results.data
-    })
-    console.log(_data);
-    for (const city of _data) {
-        if(city.name==cityName){
-            return city.id
-        }
-    }
-}
 
 router.delete('/deleteCity/:cityName', function (req, res) {
     let cityName = req.params.cityName
-    cityId=findByname(cityName)
-    Weather.findByIdAndRemove(cityId)
+    Weather.deleteMany({name:cityName}).then(()=>{
+        console.log("daleted");
+    })
     res.end()
 })
 
 module.exports = router
-
